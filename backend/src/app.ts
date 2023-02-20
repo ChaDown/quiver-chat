@@ -1,16 +1,29 @@
 import express from 'express';
-import apiRouter from '/routes/api';
+import apiRouter from './routes/api';
 import passport from 'passport';
-import session from 'express-session';
-import LocalStrategy from 'passport-local';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import './passport';
+
+dotenv.config();
+
+// Set up DB
+const mongoDB: string = process.env.DB_KEY;
+mongoose.connect(mongoDB);
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'mongo connection error'));
 
 const app: express.Application = express();
 const port = 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use(passport.initialize());
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/api', apiRouter);
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);

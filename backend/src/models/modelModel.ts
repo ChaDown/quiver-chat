@@ -3,10 +3,13 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const modelSchema = new Schema({
-  shaper: {
-    type: Schema.Types.ObjectId,
+  title: {
+    type: String,
     required: true,
-    ref: 'Shaper',
+  },
+  shaper: {
+    type: String,
+    required: true,
   },
   visible: {
     type: Boolean,
@@ -36,6 +39,14 @@ const modelSchema = new Schema({
     ],
     required: true,
   },
+  urlString: {
+    type: String,
+    required: true,
+  },
+});
+
+modelSchema.virtual('url').get(function () {
+  return `/surfboard-model/${this.urlString}`;
 });
 
 export default mongoose.model('Model', modelSchema);
