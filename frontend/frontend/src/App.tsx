@@ -1,24 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Add from './components/Add';
+import Home from './components/Home';
+import User from './components/User';
+import Model from './components/Model';
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        {/* <Route path='/surfboard-model/:modelId' element={<Model />} />
+        <Route path='/user/:userId' element={<User />} />
+        <Route path='/add' element={<Add />} /> */}
+      </Routes>
     </div>
   );
 }
