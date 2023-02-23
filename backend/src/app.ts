@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import './passport';
 
 dotenv.config();
@@ -18,6 +19,7 @@ db.on('error', console.error.bind(console, 'mongo connection error'));
 const app: express.Application = express();
 const port = 3000;
 
+app.use(cors());
 app.use(passport.initialize());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));

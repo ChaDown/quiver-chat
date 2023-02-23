@@ -1,6 +1,23 @@
 import ModelModel from '../models/modelModel';
+import CommentModel from '../models/commentModel';
 import { body, validationResult } from 'express-validator';
 import express from 'express';
+
+// export function getModels(req, res, next) {
+//   ModelModel.find({ visible: true }, (err, result) => {
+//     if (err) {
+//       return next(err);
+//     }
+//     res.json(result);
+//   });
+// }
+
+export function getModels(req: express.Request, res: express.Response, next) {
+  ModelModel.find({ visible: true }, (err, result) => {
+    if (err) return next(err);
+    res.json(result);
+  });
+}
 
 export function getModel(req: express.Request, res: express.Response, next) {
   const urlString: string = req.params.urlString;
@@ -8,6 +25,51 @@ export function getModel(req: express.Request, res: express.Response, next) {
     if (err) return next(err);
     res.json(result);
   });
+}
+
+// export function getAllModels(
+//   req: express.Request,
+//   res: express.Response,
+//   next
+// ) {
+//   ModelModel.find({}, (err, result) => {
+//     if (err) return next(err);
+//     res.json(result);
+//   });
+// }
+
+// export function getRecentModels(
+//   req: express.Request,
+//   res: express.Response,
+//   next
+// ) {
+//   ModelModel.find({}, (err, result) => {
+//     if (err) return next(err);
+//     res.json(result);
+//   });
+// }
+
+export function getComments(req: express.Request, res: express.Response, next) {
+  const postId = req.params.id;
+
+  CommentModel.find({ post: postId }, (err, results) => {
+    if (err) return next(err);
+    res.json(results);
+  });
+}
+
+export function getRecentComments(
+  req: express.Request,
+  res: express.Response,
+  next
+) {
+  CommentModel.find({})
+    .sort({ _id: -1 })
+    .limit(5)
+    .exec((err, results) => {
+      if (err) return next(err);
+      res.json(results);
+    });
 }
 
 export const addNewModel = [
@@ -80,8 +142,6 @@ export const addNewModel = [
 
 export async function searchModels(req, res, next) {
   try {
-    console.log(req.query.term);
-
     const result = await ModelModel.aggregate([
       {
         $search: {
@@ -90,7 +150,7 @@ export async function searchModels(req, res, next) {
             query: `${req.query.term}`,
             path: 'title',
             fuzzy: {
-              maxEdits: 2,
+              maxEdits: 1,
             },
           },
         },
@@ -100,7 +160,8 @@ export async function searchModels(req, res, next) {
       },
       {
         $project: {
-          _id: 0,
+          _id: 1,
+          urlString: 1,
           title: 1,
           shaper: 1,
         },
