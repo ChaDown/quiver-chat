@@ -3,15 +3,6 @@ import CommentModel from '../models/commentModel';
 import { body, validationResult } from 'express-validator';
 import express from 'express';
 
-// export function getModels(req, res, next) {
-//   ModelModel.find({ visible: true }, (err, result) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     res.json(result);
-//   });
-// }
-
 export function getModels(req: express.Request, res: express.Response, next) {
   ModelModel.find({ visible: true }, (err, result) => {
     if (err) return next(err);

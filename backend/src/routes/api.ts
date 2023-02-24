@@ -29,9 +29,21 @@ router.post(
 router.post('/login', userController.logInPost);
 
 router.post(
+  '/logout',
+  passport.authenticate('jwt', { session: false }),
+  userController.logoutUser
+);
+
+router.post(
   '/comment',
   passport.authenticate('jwt', { session: false }),
   userController.commentPost
+);
+
+router.get(
+  '/user/me',
+  passport.authenticate('jwt', { session: false }),
+  userController.getUser
 );
 
 router.get('/surfboard-model/:urlString', getModel);

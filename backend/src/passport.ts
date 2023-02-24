@@ -2,6 +2,8 @@ import passport from 'passport';
 import passportLocal from 'passport-local';
 import UserModel, { UserDocument } from './models/userModel';
 import jwt from 'passport-jwt';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const JWTstrategy = jwt.Strategy;
 const ExtractJWT = jwt.ExtractJwt;
@@ -45,10 +47,6 @@ passport.use(
       try {
         const user: UserDocument = await UserModel.findOne({ username });
 
-        // if (!user) {
-        //   return done(null, false, { message: 'User not found' });
-        // }
-
         const validate: boolean = await user.isValidPassword(password);
 
         if (!validate || !user) {
@@ -65,22 +63,6 @@ passport.use(
   )
 );
 
-// passport.use(
-//   new JWTstrategy(
-//     {
-//       secretOrKey: 'TOP_SECRET',
-//       jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token'),
-//     },
-//     async (token, done) => {
-//       try {
-//         return done(null, token.user);
-//       } catch (error) {
-//         done(error);
-//       }
-//     }
-//   )
-// );
-
 const cookieExtractor = (req) => {
   let jwt = null;
 
@@ -95,15 +77,9 @@ passport.use(
   new JWTstrategy(
     {
       jwtFromRequest: cookieExtractor,
-      secretOrKey: 'TOP_SECRET',
+      secretOrKey: process.env.JWT_KEY,
     },
     (jwtPayload, done) => {
-      //   const { expiration } = jwtPayload;
-
-      //   if (Date.now() > expiration) {
-      //     done('Unauthorized', false);
-      //   }
-
       done(null, jwtPayload);
     }
   )
