@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Cantata+One&family=Noto+Sans+KR:wght@300;400&display=swap');
+
+html {
+  max-width: 100vw;
+}
+
+body,
+button,
+input {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+button,
+input {
+  font-size: 1rem;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+input {
+  padding: 3px 5px;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.582);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin-top: 0;
+  z-index: 9999;
+}
+
+.unclickable {
+  pointer-events: none;
+}

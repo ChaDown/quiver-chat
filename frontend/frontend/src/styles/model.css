@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Cantata+One&display=swap');
+
+.model-info {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+}
+
+.model-img {
+  border-right: 2px solid rgb(205, 205, 205);
+  width: 38vw;
+  margin: 10px;
+  padding: 10px;
+}
+
+.model-description {
+  width: 38vw;
+}
+
+@media (max-width: 600px) {
+  .model-info {
+    flex-direction: column;
+  }
+  .model-img {
+    border-right: none;
+    border-bottom: 2px solid rgb(205, 205, 205);
+    width: 90vw;
+  }
+  .model-description {
+    width: 90vw;
+  }
+}
+
+h1 {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  margin-top: 0.5rem;
+  color: rgb(133, 133, 133);
+}
+
+h1,
+h2 {
+  font-family: 'Cantata One', sans-serif;
+}
+
+details[open] summary ~ * {
+  animation: sweep 1s ease-in-out;
+}
+
+@keyframes sweep {
+  0% {
+    opacity: 0;
+    margin-left: -15px;
+  }
+  100% {
+    opacity: 1;
+    margin-left: 0px;
+  }
+}
