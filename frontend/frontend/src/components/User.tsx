@@ -1,13 +1,25 @@
 //USer Sidebar element
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../styles/user.css';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
 import IonIcon from '@reacticons/ionicons';
+import { UserInterface } from './interfaces';
+import { UserContext, UserVisibleContext } from './Contexts';
+import UserInfo from './UserInfo';
 
-const User = (props: { visible: boolean; toggleUserVisible: () => void }) => {
-  const userClass = props.visible ? 'show-sidebar' : 'hide-sidebar';
+// props: {
+//   visible: boolean;
+//   toggleUserVisible: () => void;
+//   user: UserInterface;
+// }
+
+const User = () => {
+  const { user, setUser } = useContext(UserContext);
+  const { userVisible, setUserVisible } = useContext(UserVisibleContext);
+
+  const userClass = userVisible ? 'show-sidebar' : 'hide-sidebar';
   const classes = `user-sidebar ${userClass}`;
 
   const [logInTab, setLogInTab] = useState(true);
@@ -15,29 +27,39 @@ const User = (props: { visible: boolean; toggleUserVisible: () => void }) => {
 
   return (
     <section className={classes}>
-      <button className='close-user-btn' onClick={props.toggleUserVisible}>
+      <button
+        className='close-user-btn'
+        onClick={() => setUserVisible(!userVisible)}
+      >
         <IonIcon
           className='close-user-icon'
           name='chevron-forward-outline'
           size='large'
         />
       </button>
-      <div className='log-sign-tab'>
-        <button
-          className={logInTab ? 'active tab' : 'tab'}
-          onClick={() => setLogInTab(true)}
-        >
-          Log In
-        </button>
-        <button
-          className={logInTab ? 'tab' : 'active tab'}
-          onClick={() => setLogInTab(false)}
-        >
-          {' '}
-          Sign Up
-        </button>
-      </div>
-      {logInTab ? <LogIn /> : <SignUp />}
+      {user ? (
+        <UserInfo />
+      ) : (
+        <div>
+          <div className='log-sign-tab'>
+            <button
+              className={logInTab ? 'active tab' : 'tab'}
+              onClick={() => setLogInTab(true)}
+            >
+              Log In
+            </button>
+            <button
+              className={logInTab ? 'tab' : 'active tab'}
+              onClick={() => setLogInTab(false)}
+            >
+              {' '}
+              Sign Up
+            </button>
+          </div>
+
+          {logInTab ? <LogIn /> : <SignUp />}
+        </div>
+      )}
     </section>
   );
 };

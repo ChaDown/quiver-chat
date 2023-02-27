@@ -34,3 +34,21 @@ nav {
   float: right;
   transform: translate(-100%, 0) scale(1.2);
 }
+
+.user-icon-button {
+  border: 0;
+  border-radius: 50%;
+  width: 2.2rem;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  background-color: rgb(0, 198, 46);
+  color: white;
+}
+
+.user-icon:hover {
+  cursor: pointer;
+  transform: translate(-100%, 0) scale(1.2);
+}

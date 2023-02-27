@@ -14,3 +14,14 @@ export interface SearchResult {
   urlString: string;
   _id: string;
 }
+
+export interface UserInterface {
+  admin?: boolean;
+  email?: string;
+  username?: string;
+  _id?: string;
+}
+
+export interface UserState {
+  user: UserInterface | null;
+}

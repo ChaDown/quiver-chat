@@ -14,6 +14,7 @@ const LogIn = () => {
         username,
         password,
       }),
+      credentials: 'include',
     })
       .then((res) => res.json())
       .then((data) => {
