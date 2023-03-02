@@ -19,7 +19,12 @@ db.on('error', console.error.bind(console, 'mongo connection error'));
 const app: express.Application = express();
 const port = 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3001',
+    credentials: true,
+  })
+);
 app.use(passport.initialize());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));

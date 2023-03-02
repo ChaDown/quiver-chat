@@ -7,10 +7,12 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: true,
+    minLength: 6,
   },
   password: {
     type: String,
     required: true,
+    minLength: 6,
   },
   email: {
     type: String,
@@ -34,11 +36,11 @@ userSchema.methods.isValidPassword = async function (password: string) {
   return compare;
 };
 
-export interface UserDocument {
+export interface UserDocument extends mongoose.Document {
   username: string;
   password: string;
   email: string;
-  isValidPassword?: (password: string) => boolean;
+  isValidPassword?: (password: string) => Promise<boolean>;
 }
 
 export default mongoose.model('User', userSchema);

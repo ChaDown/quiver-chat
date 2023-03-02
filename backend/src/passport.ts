@@ -3,6 +3,7 @@ import passportLocal from 'passport-local';
 import UserModel, { UserDocument } from './models/userModel';
 import jwt from 'passport-jwt';
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
 dotenv.config();
 
 const JWTstrategy = jwt.Strategy;
@@ -45,8 +46,15 @@ passport.use(
     },
     async (username: string, password: string, done) => {
       try {
-        const user: UserDocument = await UserModel.findOne({ username });
+        const user: UserDocument = await UserModel.findOne({
+          $or: [{ email: username }, { username: username }],
+        });
 
+        if (!user) {
+          return done(null, false, {
+            message: 'Incorrect password or username',
+          });
+        }
         const validate: boolean = await user.isValidPassword(password);
 
         if (!validate || !user) {

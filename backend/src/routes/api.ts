@@ -46,6 +46,18 @@ router.get(
   userController.getUser
 );
 
+router.put(
+  '/user/change-username',
+  passport.authenticate('jwt', { session: false }),
+  userController.changeUsername
+);
+
+router.put(
+  '/user/change-password',
+  passport.authenticate('jwt', { session: false }),
+  userController.changePassword
+);
+
 router.get('/surfboard-model/:urlString', getModel);
 
 router.post(
