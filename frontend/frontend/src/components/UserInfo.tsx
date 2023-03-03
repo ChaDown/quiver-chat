@@ -1,15 +1,26 @@
 import { UserContext, UserVisibleContext } from './Contexts';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import AccountInfo from './AccountInfo';
+import UserInfoHome from './UserInfoHome';
+import { IsActive } from './interfaces';
+import UserRecentActivity from './UserRecentActivity';
 
 const UserInfo = () => {
-  const { user, setUser } = useContext(UserContext);
-  const { userVisible, setUserVisible } = useContext(UserVisibleContext);
+  //   const { user, setUser } = useContext(UserContext);
+  //   const { userVisible, setUserVisible } = useContext(UserVisibleContext);
+  //   const [errMsg, setErrMsg] = useState<null | string>(null);
+  //   const [accInfoVisible, setAccInfoVisible] = useState<boolean>(false);
+  //   const [activityVisible, setActivityVisible] = useState<boolean>(false);
+  //   const [userHomeVisible, setUserHomeVisible] = useState<boolean>(true);
+  const [isActive, setIsActive] = useState<'home' | 'account' | 'activity'>(
+    'home'
+  );
+
   return (
-    <section className='user-info-btns'>
-      <h1>Hi {user ? user.username : ''}</h1>
-      <button>Account Info</button>
-      <button>Recent Activity</button>
-      <button>Log Out</button>
+    <section className='user-panel-container'>
+      <UserInfoHome isActive={isActive} setIsActive={setIsActive} />
+      <AccountInfo isActive={isActive} setIsActive={setIsActive} />
+      <UserRecentActivity isActive={isActive} setIsActive={setIsActive} />
     </section>
   );
 };

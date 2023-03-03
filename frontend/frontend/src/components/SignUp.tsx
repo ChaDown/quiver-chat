@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from './Contexts';
 
-const SignUp = () => {
+const SignUp = (props: {
+  logInHandler(
+    username: string,
+    password: string,
+    e?: React.FormEvent<HTMLFormElement>
+  ): void;
+  apiRes: string | null;
+}) => {
   const [apiRes, setApiRes] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password1, setPassword1] = useState('');
+  // const { user, setUser } = useContext(UserContext);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,7 +35,7 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((data) => {
         setApiRes(data.message);
-        console.log(data);
+        if (data.user) props.logInHandler(username, password);
       });
   };
 
@@ -38,6 +47,7 @@ const SignUp = () => {
         type='text'
         name='username'
         value={username}
+        minLength={6}
         onChange={(e) => setUsername(e.target.value)}
       />
       <label htmlFor='username'>*Email</label>
@@ -51,12 +61,14 @@ const SignUp = () => {
       <input
         type='password'
         name='password'
+        minLength={6}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <label htmlFor='password'>*Retype Password</label>
       <input
         type='password'
+        minLength={6}
         name='password'
         value={password1}
         onChange={(e) => setPassword1(e.target.value)}
@@ -64,7 +76,7 @@ const SignUp = () => {
       <button type='submit' className='form-btn'>
         Submit
       </button>
-      <div>{apiRes}</div>
+      <div>{props.apiRes}</div>
     </form>
   );
 };

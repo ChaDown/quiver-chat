@@ -1,16 +1,17 @@
 .user-sidebar {
-  min-width: 30vw;
+  width: 30vw;
   min-height: 100vh;
   background-color: rgb(239, 239, 239);
   z-index: 9999;
   position: fixed;
   right: 0;
   transition: transform 0.5s ease-in-out;
+  overflow-y: auto;
 }
 
 @media (max-width: 600px) {
   .user-sidebar {
-    min-width: 90vw;
+    width: 90vw;
   }
   .model-img {
     border-right: none;
@@ -24,11 +25,12 @@
 
 .show-sidebar {
   transform: translate3d(0vw, 0, 0);
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .hide-sidebar {
   transform: translate3d(100vw, 0, 0);
+  display: hidden;
 }
 
 .user-form {
@@ -61,7 +63,8 @@
   border-bottom: 3px rgb(0, 198, 46) solid;
 }
 
-.form-btn {
+.form-btn,
+.user-info-btn {
   background-color: rgb(0, 198, 46);
   padding: 4px 16px;
   border: 1px solid rgb(143, 143, 143);
@@ -85,4 +88,85 @@ input {
 .close-user-btn {
   border: none;
   margin: 10px;
+}
+
+.user-info-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-panel-container {
+  position: relative;
+}
+
+.panel {
+  transition: transform 0.5s ease-in-out;
+  position: absolute;
+  width: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  box-sizing: border-box;
+}
+
+.active-info {
+  transform: translate(0, 0);
+}
+
+.info-hidden {
+  display: hidden;
+  transform: translate(100%, 0);
+}
+
+.edit-icon {
+  margin-left: 1rem;
+  background-color: rgb(0, 198, 46);
+  border: 1px solid rgb(143, 143, 143);
+  border-radius: 3px;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem;
+}
+
+.details-span {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0px;
+}
+
+.save-btn {
+  width: 50%;
+  margin: 1rem auto;
+}
+
+.go-back-btn {
+  margin-left: 0;
+}
+
+.api-msg {
+  text-align: center;
+}
+
+.comment-container {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.comment-date {
+  font-size: 0.7rem;
+  color: rgb(123, 123, 123);
+}
+
+.comment-link {
+  color: inherit;
+  text-decoration: none;
 }

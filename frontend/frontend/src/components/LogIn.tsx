@@ -1,31 +1,22 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from './Contexts';
 
-const LogIn = () => {
-  const [apiRes, setApiRes] = useState(null);
+const LogIn = (props: {
+  logInHandler(
+    username: string,
+    password: string,
+    e?: React.FormEvent<HTMLFormElement>
+  ): void;
+  apiRes: string | null;
+}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    fetch('http://localhost:3000/api/login', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        username,
-        password,
-      }),
-      credentials: 'include',
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setApiRes(data.message);
-        console.log(data);
-      });
-  };
-
   return (
-    // <form method='post' action='http://localhost:3000/api/login'>
-    <form className='user-form' onSubmit={onSubmit}>
+    <form
+      className='user-form'
+      onSubmit={(e) => props.logInHandler(username, password, e)}
+    >
       <label htmlFor='username'>*Username or Email</label>
       <input
         type='text'
@@ -43,7 +34,7 @@ const LogIn = () => {
       <button type='submit' className='form-btn'>
         Submit
       </button>
-      <div>{apiRes}</div>
+      <div>{props.apiRes}</div>
     </form>
   );
 };

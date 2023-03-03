@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import User from './components/User';
-import Model from './components/Model';
+import Model from './components/ModelPage';
 import NavBar from './components/NavBar';
 import { UserContext, UserVisibleContext } from './components/Contexts';
 import './App.css';
@@ -17,16 +17,13 @@ function App() {
   useEffect(() => {
     fetch(`http://localhost:3000/api/user/me`, { credentials: 'include' })
       .then((res) => {
-        console.log(res);
         if (!res.ok) return;
         return res.json();
       })
-      .then((data) => setUser(data.user.body));
+      .then((data) => {
+        if (data) setUser(data.user);
+      });
   }, []);
-
-  // const toggleUserVisible = () => {
-  //   setUserVisible(!userVisible);
-  // };
 
   return (
     <UserContext.Provider value={userValue}>
