@@ -1,7 +1,8 @@
 nav {
   display: flex;
   align-items: center;
-  height: 4rem;
+  width: 100vw;
+  position: absolute;
 }
 
 .search-info-navbar {
@@ -31,8 +32,10 @@ nav {
 
 .user-icon {
   color: rgb(133, 133, 133);
-  float: right;
-  transform: translate(-100%, 0) scale(1.2);
+  position: absolute;
+  right: 4vw;
+  top: 15px;
+  transform: scale(1.2);
 }
 
 .user-icon-button {
@@ -50,5 +53,5 @@ nav {
 
 .user-icon:hover {
   cursor: pointer;
-  transform: translate(-100%, 0) scale(1.2);
+  transform: scale(1.2);
 }

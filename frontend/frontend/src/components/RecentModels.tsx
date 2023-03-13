@@ -17,13 +17,18 @@ const RecentModels = (props: { recentModels: Model[] }) => {
       id='main'
       centeredSlides={true}
       loop={true}
-      slidesPerView={3}
+      slidesPerView={1}
       autoplay={{
         delay: 1000,
         reverseDirection: true,
         pauseOnMouseEnter: true,
       }}
       speed={2000}
+      breakpoints={{
+        500: {
+          slidesPerView: 3,
+        },
+      }}
     >
       {props.recentModels.map((model, index) => (
         <SwiperSlide className='swiper-slide' tag='li' key={index}>

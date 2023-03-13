@@ -159,6 +159,9 @@ input {
   padding: 10px;
   border-radius: 5px;
   margin: 10px;
+  -moz-box-shadow: 0 0 3px #828282;
+  -webkit-box-shadow: 0 0 3px #828282;
+  box-shadow: 0 0 3px #828282;
 }
 
 .comment-date {
@@ -169,4 +172,11 @@ input {
 .comment-link {
   color: inherit;
   text-decoration: none;
+}
+.comment-top-line {
+  display: flex;
+  justify-content: space-between;
+}
+.comment-content {
+  padding: 5px 0px;
 }
