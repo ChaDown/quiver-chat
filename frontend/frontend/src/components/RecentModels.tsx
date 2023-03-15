@@ -30,7 +30,7 @@ const RecentModels = (props: { recentModels: Model[] }) => {
       }}
       speed={2000}
       breakpoints={{
-        500: {
+        600: {
           slidesPerView: 3,
         },
       }}

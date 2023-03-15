@@ -49,6 +49,11 @@
   justify-content: center;
   gap: 15px;
   margin-top: 1vh;
+  color: #005e6c;
+}
+
+.log-sign-tab button {
+  color: #005e6c;
 }
 
 .tab {
@@ -160,9 +165,9 @@ input {
   padding: 10px;
   border-radius: 5px;
   margin: 10px;
-  -moz-box-shadow: 0 0 3px #828282;
-  -webkit-box-shadow: 0 0 3px #828282;
-  box-shadow: 0 0 3px #828282;
+  -moz-box-shadow: 0 0 6px #005e6c;
+  -webkit-box-shadow: 0 0 6px #005e6c;
+  box-shadow: 0 0 6px #005e6c;
 }
 
 .comment-date {

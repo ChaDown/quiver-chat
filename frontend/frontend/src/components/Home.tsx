@@ -46,9 +46,7 @@ const Home = () => {
         <Search isHomePage={true} />
       </div>
       <RecentModels recentModels={recentModels} />
-      <section className='recent-comments'>
-        <RecentComments />
-      </section>
+      <RecentComments />
     </div>
   );
 };
