@@ -45,6 +45,17 @@ const modelSchema = new Schema({
   },
 });
 
+export interface Model extends mongoose.Document {
+  _id: string;
+  title: string;
+  shaper: string;
+  visible: boolean;
+  imgLink: string;
+  description: string;
+  category: string;
+  urlString: string;
+}
+
 modelSchema.virtual('url').get(function () {
   return `/surfboard-model/${this.urlString}`;
 });

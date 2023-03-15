@@ -1,5 +1,5 @@
 import ModelModel from '../models/modelModel';
-import CommentModel from '../models/commentModel';
+import CommentModel, { Comment } from '../models/commentModel';
 import { body, validationResult } from 'express-validator';
 import express from 'express';
 
@@ -40,13 +40,45 @@ export function getModel(req: express.Request, res: express.Response, next) {
 //   });
 // }
 
-export function getComments(req: express.Request, res: express.Response, next) {
-  const postId = req.params.id;
+function filterComment(comment) {
+  const filteredComment = {
+    date: comment.date,
+    comment: comment.content,
+    modelName: comment.postId.title,
+    shaper: comment.postId.shaper,
+    username: comment.user.username,
+    urlString: comment.postId.urlString,
+  };
+  return filteredComment;
+}
 
-  CommentModel.find({ post: postId }, (err, results) => {
-    if (err) return next(err);
-    res.json(results);
+export async function getComments(
+  req: express.Request,
+  res: express.Response,
+  next
+) {
+  const id = req.params.postId;
+
+  const resultsArray: Comment[] = await CommentModel.find({ postId: id })
+    .populate('postId')
+    .populate('user');
+
+  const responseArray = [];
+
+  resultsArray.map((comment) => {
+    const filteredComment = filterComment(comment);
+    // {
+    //   date: comment.date,
+    //   comment: comment.content,
+    //   modelName: comment.postId.title,
+    //   shaper: comment.postId.shaper,
+    //   username: comment.user.username,
+    //   urlString: comment.postId.urlString,
+    // };
+    responseArray.push(filteredComment);
   });
+
+  res.json(responseArray);
 }
 
 export function getRecentComments(
@@ -55,13 +87,45 @@ export function getRecentComments(
   next
 ) {
   CommentModel.find({})
+    .populate('postId')
+    .populate('user', 'username')
     .sort({ _id: -1 })
-    .limit(5)
+    .limit(10)
     .exec((err, results) => {
       if (err) return next(err);
       res.json(results);
     });
 }
+
+export const postComment = [
+  // body('user').trim().escape(),
+  body('postId').trim().escape(),
+  body('content').trim().isLength({ min: 2 }),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    // Check for validation errors, send them back if there are.
+    if (!errors.isEmpty()) {
+      res.json({
+        message: 'Errors in validation',
+        errors: errors.array(),
+      });
+      return;
+    }
+
+    // All clear, add new comment in DB with the details
+    const newComment = new CommentModel({
+      user: req.user.body._id,
+      postId: req.body.postId,
+      content: req.body.content,
+    });
+
+    newComment.save((err) => {
+      if (err) return next(err);
+      //success
+      res.json(newComment);
+    });
+  },
+];
 
 export const addNewModel = [
   body('title').trim().isLength({ min: 3 }).escape(),
@@ -94,7 +158,7 @@ export const addNewModel = [
   body('urlString').trim().escape(),
   // After validation and sanitation we can process the req
   (req, res, next) => {
-    if (!req.user.user.admin) {
+    if (!req.user.body.admin) {
       res.status(403).json({
         message: 'Access forbidden - Only admins can add / edit posts',
         user: req.user,

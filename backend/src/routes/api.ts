@@ -8,6 +8,7 @@ import {
   searchModels,
   getComments,
   getRecentComments,
+  postComment,
 } from '../controllers/modelController';
 
 const router = express.Router();
@@ -16,9 +17,21 @@ const router = express.Router();
 
 router.get('/model/all-models', getModels);
 
-router.get('/model/get-comments', getComments);
+router.get('/model/get-comments/:postId', getComments);
 
-router.get('/model/get-recent-comments', getRecentComments);
+router.get('/get-recent-comments', getRecentComments);
+
+router.get(
+  '/user/get-user-comments',
+  passport.authenticate('jwt', { session: false }),
+  userController.getUserComments
+);
+
+router.post(
+  '/comment',
+  passport.authenticate('jwt', { session: false }),
+  postComment
+);
 
 router.post(
   '/signup',
@@ -32,12 +45,6 @@ router.post(
   '/logout',
   passport.authenticate('jwt', { session: false }),
   userController.logoutUser
-);
-
-router.post(
-  '/comment',
-  passport.authenticate('jwt', { session: false }),
-  userController.commentPost
 );
 
 router.get(

@@ -1,9 +1,9 @@
 import userModel, { UserDocument } from '../models/userModel';
-import express from 'express';
 import { body, validationResult } from 'express-validator';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import commentModel, { Comment } from '../models/commentModel';
 dotenv.config();
 
 export const signUpPost = [
@@ -57,6 +57,7 @@ export async function logInPost(req, res, next) {
           _id: user._id,
           username: user.username,
           admin: user.admin,
+          email: user.email,
         };
         const token = jwt.sign({ body }, process.env.JWT_KEY);
 
@@ -75,14 +76,36 @@ export async function logInPost(req, res, next) {
 }
 
 export async function getUser(req, res, next) {
-  const user: UserDocument = await userModel.findOne({
-    _id: req.user.body._id,
-  });
-
   return res.json({
     message: 'User is logged in',
-    user: user,
+    user: req.user.body,
   });
+}
+
+export async function getUserComments(req, res, next) {
+  const userId = req.user.body._id;
+
+  const comments: Comment[] = await commentModel
+    .find({ user: userId })
+    .populate('postId');
+
+  const responseArray = [];
+
+  comments.map((comment) => {
+    const filteredComment = {
+      date: comment.date,
+      comment: comment.content,
+      modelName: comment.postId.title,
+      shaper: comment.postId.shaper,
+      username: comment.user.username,
+      urlString: comment.postId.urlString,
+    };
+    responseArray.push(filteredComment);
+  });
+
+  res.json(responseArray);
+
+  // res.json({ comments: comments });
 }
 
 export const changeUsername = [
@@ -110,10 +133,7 @@ export async function changePassword(req, res, next) {
     _id: req.user.body._id,
   });
 
-  console.log(user);
-  console.log(req.body.password);
   const valid: boolean = await user.isValidPassword(req.body.password);
-  console.log(valid);
 
   if (valid) {
     const user: UserDocument = await userModel.findOne({
@@ -123,14 +143,6 @@ export async function changePassword(req, res, next) {
     await user.save();
     res.json({ message: 'Password Changed!' });
   } else res.json({ message: 'Invalid Password' });
-}
-
-export function commentPost(req, res, next) {
-  return res.json({
-    message: 'Your a commentor',
-    user: req.user,
-    // token: req.query.secret_token,
-  });
 }
 
 export function logoutUser(req, res) {

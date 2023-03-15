@@ -1,4 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose, { ObjectId } from 'mongoose';
+import { Model } from './modelModel';
+import { UserDocument } from './userModel';
 
 const Schema = mongoose.Schema;
 
@@ -29,5 +31,13 @@ const commentSchema = new Schema({
     required: true,
   },
 });
+
+export interface Comment extends mongoose.Document {
+  user: UserDocument;
+  postId: Model;
+  date: Date;
+  visible: boolean;
+  content: string;
+}
 
 export default mongoose.model('Comment', commentSchema);

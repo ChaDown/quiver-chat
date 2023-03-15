@@ -40,6 +40,7 @@ export interface UserDocument extends mongoose.Document {
   username: string;
   password: string;
   email: string;
+  admin: boolean;
   isValidPassword?: (password: string) => Promise<boolean>;
 }
 
