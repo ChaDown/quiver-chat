@@ -18,28 +18,7 @@ export function getModel(req: express.Request, res: express.Response, next) {
   });
 }
 
-// export function getAllModels(
-//   req: express.Request,
-//   res: express.Response,
-//   next
-// ) {
-//   ModelModel.find({}, (err, result) => {
-//     if (err) return next(err);
-//     res.json(result);
-//   });
-// }
-
-// export function getRecentModels(
-//   req: express.Request,
-//   res: express.Response,
-//   next
-// ) {
-//   ModelModel.find({}, (err, result) => {
-//     if (err) return next(err);
-//     res.json(result);
-//   });
-// }
-
+// Helper function
 function filterComment(comment) {
   const filteredComment = {
     date: comment.date,
@@ -59,26 +38,22 @@ export async function getComments(
 ) {
   const id = req.params.postId;
 
-  const resultsArray: Comment[] = await CommentModel.find({ postId: id })
-    .populate('postId')
-    .populate('user');
+  try {
+    const resultsArray: Comment[] = await CommentModel.find({ postId: id })
+      .populate('postId')
+      .populate('user');
 
-  const responseArray = [];
+    const responseArray = [];
 
-  resultsArray.map((comment) => {
-    const filteredComment = filterComment(comment);
-    // {
-    //   date: comment.date,
-    //   comment: comment.content,
-    //   modelName: comment.postId.title,
-    //   shaper: comment.postId.shaper,
-    //   username: comment.user.username,
-    //   urlString: comment.postId.urlString,
-    // };
-    responseArray.push(filteredComment);
-  });
+    resultsArray.map((comment) => {
+      const filteredComment = filterComment(comment);
+      responseArray.push(filteredComment);
+    });
 
-  res.json(responseArray);
+    res.json(responseArray);
+  } catch (err) {
+    if (err) return next(err);
+  }
 }
 
 export function getRecentComments(
@@ -225,5 +200,6 @@ export async function searchModels(req, res, next) {
     res.json(result);
   } catch (err) {
     res.status(500).send({ message: err.message });
+    next();
   }
 }
