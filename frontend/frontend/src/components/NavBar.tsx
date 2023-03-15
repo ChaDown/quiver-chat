@@ -14,7 +14,7 @@ import Logo from '../imgs/icon-qc.png';
 const NavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { userVisible, setUserVisible } = useContext(UserVisibleContext);
 
   if (location.pathname === '/') return null;

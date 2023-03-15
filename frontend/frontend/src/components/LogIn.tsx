@@ -1,5 +1,4 @@
-import { useContext, useState } from 'react';
-import { UserContext } from './Contexts';
+import { useState } from 'react';
 
 const LogIn = (props: {
   logInHandler(

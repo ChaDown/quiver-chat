@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { Model } from './interfaces';
 import { register } from 'swiper/element/bundle';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -55,57 +54,3 @@ const RecentModels = (props: { recentModels: Model[] }) => {
 };
 
 export default RecentModels;
-
-{
-  /* <div className='recent-models-container'>
-        <div
-          className='slider-image'
-          style={{
-            backgroundImage: `url(${props.recentModels[currentIndex].imgLink})`,
-          }}
-        ></div>
-        <div
-          className='slider-left-image slider-image'
-          style={{
-            backgroundImage: `url(${props.recentModels[previousIndex].imgLink})`,
-          }}
-        ></div>
-        <div
-          className='slider-right-image slider-image'
-          style={{
-            backgroundImage: `url(${props.recentModels[nextIndex].imgLink})`,
-          }}
-        ></div>
-      </div>
-      <div className='left-arrow' onClick={goToNext}>
-        ⭅
-      </div>
-      <div className='right-arrow' onClick={goToPrevious}>
-        ⭆
-      </div>
-    </div> */
-}
-
-// const goToNext = () => {
-//   const newIndex =
-//     currentIndex < props.recentModels.length - 1 ? currentIndex + 1 : 0;
-//   const nextIndex =
-//     newIndex < props.recentModels.length - 1 ? newIndex + 1 : 0;
-//   const previousIndex =
-//     newIndex !== 0 ? newIndex - 1 : props.recentModels.length - 1;
-//   setCurrentIndex(newIndex);
-//   setNextIndex(nextIndex);
-//   setPreviousIndex(previousIndex);
-// };
-
-// const goToPrevious = () => {
-//   const newIndex =
-//     currentIndex !== 0 ? currentIndex - 1 : props.recentModels.length - 1;
-//   const previousIndex =
-//     newIndex !== 0 ? newIndex - 1 : props.recentModels.length - 1;
-//   const nextIndex =
-//     newIndex < props.recentModels.length - 1 ? newIndex + 1 : 0;
-//   setCurrentIndex(newIndex);
-//   setPreviousIndex(previousIndex);
-//   setNextIndex(nextIndex);
-// };

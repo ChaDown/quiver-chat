@@ -10,7 +10,7 @@ import HomeImg from '../imgs/logo-qc.png';
 
 const Home = () => {
   const [recentModels, setRecentModels] = useState<Model[]>([]);
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { userVisible, setUserVisible } = useContext(UserVisibleContext);
 
   useEffect(() => {
