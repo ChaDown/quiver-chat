@@ -5,6 +5,12 @@ import { Comment } from './interfaces';
 const RecentComments = () => {
   const [recentComments, setRecentComments] = useState<Comment[]>([]);
 
+  function decodeHtml(html: any) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
+  }
+
   useEffect(() => {
     fetch('http://localhost:3000/api/get-recent-comments')
       .then((res) => res.json())
@@ -21,7 +27,7 @@ const RecentComments = () => {
           <div className='comment-container home-comment-container'>
             <img
               className='comment-thumbnail'
-              src={comment.postId.imgLink}
+              src={decodeHtml(comment.postId.imgLink)}
               alt={comment.postId.title}
             />
             <div>

@@ -17,6 +17,10 @@ textarea {
   font-size: 1rem;
 }
 
+button {
+  color: white;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -27,7 +31,7 @@ textarea {
 }
 
 p {
-  word-break: break-all;
+  word-break: normal;
 }
 
 a {

@@ -9,6 +9,12 @@ register();
 const RecentModels = (props: { recentModels: Model[] }) => {
   if (props.recentModels.length === 0) return null;
 
+  function decodeHtml(html: any) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
+  }
+
   return (
     <Swiper
       className='swiper-container'
@@ -36,7 +42,7 @@ const RecentModels = (props: { recentModels: Model[] }) => {
             <div className='img-container'>
               <img
                 className='swiper-image'
-                src={model.imgLink}
+                src={decodeHtml(model.imgLink)}
                 alt={`${model.shaper}-${model.title}`}
               />
               <div className='slider-image-text'>{`${model.shaper} - ${model.title}`}</div>

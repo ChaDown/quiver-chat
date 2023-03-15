@@ -6,6 +6,7 @@ import { Model } from './interfaces';
 import RecentComments from './RecentComments';
 import IonIcon from '@reacticons/ionicons';
 import { UserContext, UserVisibleContext } from './Contexts';
+import HomeImg from '../imgs/logo-qc.png';
 
 const Home = () => {
   const [recentModels, setRecentModels] = useState<Model[]>([]);
@@ -25,7 +26,7 @@ const Home = () => {
     <div>
       <div className='searchContainer'>
         <div className='top-row-home'>
-          <h1>Quiver Chat</h1>
+          <img className='logo-img' src={HomeImg} alt='Quiver Chat Home' />
           {user ? (
             <button
               className='user-icon user-icon-button user-icon-btn-home'
@@ -42,7 +43,6 @@ const Home = () => {
             />
           )}
         </div>
-        <h2>Let's Talk Surfboards</h2>
         <Search isHomePage={true} />
       </div>
       <RecentModels recentModels={recentModels} />

@@ -1,5 +1,6 @@
 nav {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   width: 100vw;
   position: absolute;
@@ -15,13 +16,6 @@ nav {
   z-index: 1000;
   padding: 5px;
   background-color: white;
-}
-
-@media (max-width: 600px) {
-  .search-info-navbar {
-    width: 40vw;
-    padding: 2px 5px;
-  }
 }
 
 .search-input-nav {
@@ -47,11 +41,34 @@ nav {
   justify-content: center;
   align-items: center;
   font-size: 1.1rem;
-  background-color: rgb(0, 198, 46);
+  background-color: #005e6c;
   color: white;
 }
 
 .user-icon:hover {
   cursor: pointer;
   transform: scale(1.2);
+}
+
+.nav-logo-btn {
+  background-color: inherit;
+  border: 0;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+.nav-logo {
+  width: 6rem;
+}
+
+@media (max-width: 600px) {
+  .search-info-navbar {
+    width: 40vw;
+    padding: 2px 5px;
+  }
+
+  .nav-logo {
+    width: 5rem;
+  }
 }

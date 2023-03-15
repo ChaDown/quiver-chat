@@ -60,12 +60,12 @@
 }
 
 .active {
-  border-bottom: 3px rgb(0, 198, 46) solid;
+  border-bottom: 3px #005e6c solid;
 }
 
 .form-btn,
 .user-info-btn {
-  background-color: rgb(0, 198, 46);
+  background-color: #005e6c;
   padding: 4px 16px;
   border: 1px solid rgb(143, 143, 143);
   margin: 10px;
@@ -88,6 +88,7 @@ input {
 .close-user-btn {
   border: none;
   margin: 10px;
+  color: #005e6c;
 }
 
 .user-info-btns {
@@ -123,7 +124,7 @@ input {
 
 .edit-icon {
   margin-left: 1rem;
-  background-color: rgb(0, 198, 46);
+  background-color: #005e6c;
   border: 1px solid rgb(143, 143, 143);
   border-radius: 3px;
 }

@@ -1,10 +1,10 @@
 import Search from './Search';
 import '../styles/navbar.css';
 import IonIcon from '@reacticons/ionicons';
-import { useLocation } from 'react-router-dom';
-import { UserInterface } from './interfaces';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext, UserVisibleContext } from './Contexts';
+import Logo from '../imgs/icon-qc.png';
 
 // props: {
 //   toggleUserVisible: () => void;
@@ -13,6 +13,7 @@ import { UserContext, UserVisibleContext } from './Contexts';
 
 const NavBar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const { userVisible, setUserVisible } = useContext(UserVisibleContext);
 
@@ -20,6 +21,9 @@ const NavBar = () => {
 
   return (
     <nav>
+      <button onClick={() => navigate('/')} className='nav-logo-btn'>
+        <img className='nav-logo' src={Logo} alt='Quiver Chat Logo' />
+      </button>
       <Search isHomePage={false} />
       {user ? (
         <button
