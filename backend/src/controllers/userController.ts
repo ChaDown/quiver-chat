@@ -85,27 +85,29 @@ export async function getUser(req, res, next) {
 export async function getUserComments(req, res, next) {
   const userId = req.user.body._id;
 
-  const comments: Comment[] = await commentModel
-    .find({ user: userId })
-    .populate('postId');
+  try {
+    const comments: Comment[] = await commentModel
+      .find({ user: userId })
+      .populate('postId');
 
-  const responseArray = [];
+    const responseArray = [];
 
-  comments.map((comment) => {
-    const filteredComment = {
-      date: comment.date,
-      comment: comment.content,
-      modelName: comment.postId.title,
-      shaper: comment.postId.shaper,
-      username: comment.user.username,
-      urlString: comment.postId.urlString,
-    };
-    responseArray.push(filteredComment);
-  });
+    comments.map((comment) => {
+      const filteredComment = {
+        date: comment.date,
+        comment: comment.content,
+        modelName: comment.postId.title,
+        shaper: comment.postId.shaper,
+        username: comment.user.username,
+        urlString: comment.postId.urlString,
+      };
+      responseArray.push(filteredComment);
+    });
 
-  res.json(responseArray);
-
-  // res.json({ comments: comments });
+    res.json(responseArray);
+  } catch (e) {
+    return next(e);
+  }
 }
 
 export const changeUsername = [

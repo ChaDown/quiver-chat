@@ -3,11 +3,9 @@ import passportLocal from 'passport-local';
 import UserModel, { UserDocument } from './models/userModel';
 import jwt from 'passport-jwt';
 import dotenv from 'dotenv';
-import bodyParser from 'body-parser';
 dotenv.config();
 
 const JWTstrategy = jwt.Strategy;
-const ExtractJWT = jwt.ExtractJwt;
 const LocalStrategy = passportLocal.Strategy;
 
 passport.use(
