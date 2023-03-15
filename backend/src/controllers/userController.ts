@@ -33,7 +33,7 @@ export const signUpPost = [
 
     if (req.err) {
       res.status(403).json(req.info);
-      return;
+      return next(req.err);
     }
     res.json({
       message: 'Signup successful',
@@ -75,7 +75,7 @@ export async function logInPost(req, res, next) {
   )(req, res, next);
 }
 
-export async function getUser(req, res, next) {
+export async function getUser(req, res) {
   return res.json({
     message: 'User is logged in',
     user: req.user.body,
@@ -116,7 +116,7 @@ export const changeUsername = [
     .isLength({ min: 6, max: 30 })
     .withMessage('Must be between 6 - 30 characters')
     .escape(),
-  (req, res, next) => {
+  (req, res) => {
     userModel
       .updateOne(
         {
@@ -131,20 +131,24 @@ export const changeUsername = [
 ];
 
 export async function changePassword(req, res, next) {
-  const user: UserDocument = await userModel.findOne({
-    _id: req.user.body._id,
-  });
-
-  const valid: boolean = await user.isValidPassword(req.body.password);
-
-  if (valid) {
+  try {
     const user: UserDocument = await userModel.findOne({
       _id: req.user.body._id,
     });
-    user.password = req.body.newPassword;
-    await user.save();
-    res.json({ message: 'Password Changed!' });
-  } else res.json({ message: 'Invalid Password' });
+
+    const valid: boolean = await user.isValidPassword(req.body.password);
+
+    if (valid) {
+      const user: UserDocument = await userModel.findOne({
+        _id: req.user.body._id,
+      });
+      user.password = req.body.newPassword;
+      await user.save();
+      res.json({ message: 'Password Changed!' });
+    } else res.json({ message: 'Invalid Password' });
+  } catch (err) {
+    return next(err);
+  }
 }
 
 export function logoutUser(req, res) {
