@@ -22,14 +22,17 @@ const PostComment = (props: {
   async function onSubmitComment(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const response = await fetch('http://localhost:3000/api/comment', {
-      method: 'post',
-      credentials: 'include',
-      body: new URLSearchParams({
-        content: commentContent,
-        postId: props.postId,
-      }),
-    });
+    const response = await fetch(
+      'https://quiver-chat-api.onrender.com/api/comment',
+      {
+        method: 'post',
+        credentials: 'include',
+        body: new URLSearchParams({
+          content: commentContent,
+          postId: props.postId,
+        }),
+      }
+    );
 
     if (response.ok) {
       const comment = await response.json();

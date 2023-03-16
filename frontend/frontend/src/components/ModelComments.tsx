@@ -13,7 +13,9 @@ const ModelComments = (props: { post: Model }) => {
   const [comment, setComment] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/model/get-comments/${props.post._id}`)
+    fetch(
+      `https://quiver-chat-api.onrender.com/api/model/get-comments/${props.post._id}`
+    )
       .then((res) => res.json())
       .then((data) => setPostComments(data));
   }, [props.post._id, comment]);

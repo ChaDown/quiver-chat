@@ -17,7 +17,7 @@ const Search = (props: { isHomePage: boolean }) => {
       setSearchResults([]);
       return;
     }
-    fetch(`http://localhost:3000/api/search?term=${queryText}`)
+    fetch(`https://quiver-chat-api.onrender.com/api/search?term=${queryText}`)
       .then((response) => response.json())
       .then((data) => {
         setSearchResults(data);

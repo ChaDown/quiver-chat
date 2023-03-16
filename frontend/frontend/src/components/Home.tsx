@@ -14,7 +14,7 @@ const Home = () => {
   const { userVisible, setUserVisible } = useContext(UserVisibleContext);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/model/all-models')
+    fetch('https://quiver-chat-api.onrender.com/api/model/all-models')
       .then((res) => res.json())
       .then((data: Model[]) => {
         const lastFive: Model[] = data.slice(-5).reverse();

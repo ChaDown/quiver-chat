@@ -23,7 +23,7 @@ const SignUp = (props: {
       setApiRes("Passwords aren't matching, try again.");
       return;
     }
-    fetch('http://localhost:3000/api/signup', {
+    fetch('https://quiver-chat-api.onrender.com/api/signup', {
       method: 'post',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
@@ -40,7 +40,7 @@ const SignUp = (props: {
   };
 
   return (
-    // <form method='post' action='http://localhost:3000/api/login'>
+    // <form method='post' action='https://quiver-chat-api.onrender.com/api/login'>
     <form className='user-form' onSubmit={onSubmit}>
       <label htmlFor='username'>*Username</label>
       <input

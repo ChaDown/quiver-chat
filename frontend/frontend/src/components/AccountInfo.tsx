@@ -23,7 +23,7 @@ const AccountInfo = (props: {
     if (newUsername !== newUsername1) return;
 
     const response = await fetch(
-      'http://localhost:3000/api/user/change-username',
+      'https://quiver-chat-api.onrender.com/api/user/change-username',
       {
         method: 'put',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -47,7 +47,7 @@ const AccountInfo = (props: {
     }
 
     const response = await fetch(
-      'http://localhost:3000/api/user/change-password',
+      'https://quiver-chat-api.onrender.com/api/user/change-password',
       {
         method: 'put',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

@@ -15,7 +15,9 @@ function App() {
   const userVisibleValue = { userVisible, setUserVisible };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/user/me`, { credentials: 'include' })
+    fetch(`https://quiver-chat-api.onrender.com/api/user/me`, {
+      credentials: 'include',
+    })
       .then((res) => {
         if (!res.ok) return;
         return res.json();

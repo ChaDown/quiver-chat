@@ -11,10 +11,13 @@ const UserInfoHome = (props: {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/logout', {
-        method: 'post',
-        credentials: 'include',
-      });
+      const response = await fetch(
+        'https://quiver-chat-api.onrender.com/api/logout',
+        {
+          method: 'post',
+          credentials: 'include',
+        }
+      );
       if (response?.ok) {
         setUser(null);
         setUserVisible(false);

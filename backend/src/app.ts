@@ -21,7 +21,7 @@ const port = 3000;
 
 app.use(
   cors({
-    origin: 'http://localhost:3001',
+    origin: 'https://quiver-chat.onrender.com',
     credentials: true,
   })
 );
@@ -33,5 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', apiRouter);
 
 app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
+  return console.log(
+    `Express is listening at https://quiver-chat-api.onrender.com`
+  );
 });

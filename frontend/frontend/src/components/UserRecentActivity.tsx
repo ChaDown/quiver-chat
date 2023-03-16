@@ -12,7 +12,7 @@ const UserRecentActivity = (props: {
   const [userComments, setUserComments] = useState<Array<FilteredComment>>([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/user/get-user-comments', {
+    fetch('https://quiver-chat-api.onrender.com/api/user/get-user-comments', {
       credentials: 'include',
     })
       .then((res) => res.json())

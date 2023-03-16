@@ -16,8 +16,9 @@ const passport_1 = __importDefault(require("passport"));
 const passport_local_1 = __importDefault(require("passport-local"));
 const userModel_1 = __importDefault(require("./models/userModel"));
 const passport_jwt_1 = __importDefault(require("passport-jwt"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const JWTstrategy = passport_jwt_1.default.Strategy;
-const ExtractJWT = passport_jwt_1.default.ExtractJwt;
 const LocalStrategy = passport_local_1.default.Strategy;
 passport_1.default.use('signup', new LocalStrategy({
     usernameField: 'username',
@@ -43,10 +44,14 @@ passport_1.default.use('login', new LocalStrategy({
     passwordField: 'password',
 }, (username, password, done) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield userModel_1.default.findOne({ username });
-        // if (!user) {
-        //   return done(null, false, { message: 'User not found' });
-        // }
+        const user = yield userModel_1.default.findOne({
+            $or: [{ email: username }, { username: username }],
+        });
+        if (!user) {
+            return done(null, false, {
+                message: 'Incorrect password or username',
+            });
+        }
         const validate = yield user.isValidPassword(password);
         if (!validate || !user) {
             return done(null, false, {
@@ -59,21 +64,6 @@ passport_1.default.use('login', new LocalStrategy({
         return done(error);
     }
 })));
-// passport.use(
-//   new JWTstrategy(
-//     {
-//       secretOrKey: 'TOP_SECRET',
-//       jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token'),
-//     },
-//     async (token, done) => {
-//       try {
-//         return done(null, token.user);
-//       } catch (error) {
-//         done(error);
-//       }
-//     }
-//   )
-// );
 const cookieExtractor = (req) => {
     let jwt = null;
     if (req && req.cookies) {
@@ -83,12 +73,8 @@ const cookieExtractor = (req) => {
 };
 passport_1.default.use('jwt', new JWTstrategy({
     jwtFromRequest: cookieExtractor,
-    secretOrKey: 'TOP_SECRET',
+    secretOrKey: process.env.JWT_KEY,
 }, (jwtPayload, done) => {
-    //   const { expiration } = jwtPayload;
-    //   if (Date.now() > expiration) {
-    //     done('Unauthorized', false);
-    //   }
     done(null, jwtPayload);
 }));
 //# sourceMappingURL=passport.js.map

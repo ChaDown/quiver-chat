@@ -12,7 +12,7 @@ const RecentComments = () => {
   }
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/get-recent-comments')
+    fetch('https://quiver-chat-api.onrender.com/api/get-recent-comments')
       .then((res) => res.json())
       .then((data) => setRecentComments(data));
   }, []);

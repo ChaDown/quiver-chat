@@ -10,7 +10,9 @@ const ModelPage = () => {
   const [post, setPost] = useState<Model>();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/surfboard-model/${urlString}`)
+    fetch(
+      `https://quiver-chat-api.onrender.com/api/surfboard-model/${urlString}`
+    )
       .then((result) => result.json())
       .then((data) => setPost(data[0]));
   }, [urlString]);

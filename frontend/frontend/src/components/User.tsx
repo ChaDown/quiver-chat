@@ -25,15 +25,18 @@ const User = () => {
     e?: React.FormEvent<HTMLFormElement>
   ) => {
     if (e) e.preventDefault();
-    const response = await fetch('http://localhost:3000/api/login', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        username,
-        password,
-      }),
-      credentials: 'include',
-    });
+    const response = await fetch(
+      'https://quiver-chat-api.onrender.com/api/login',
+      {
+        method: 'post',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          username,
+          password,
+        }),
+        credentials: 'include',
+      }
+    );
 
     const data = await response.json();
     setApiRes(data.message);
