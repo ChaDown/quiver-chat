@@ -17,7 +17,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'mongo connection error'));
 
 const app: express.Application = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(
   cors({
@@ -33,7 +33,5 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', apiRouter);
 
 app.listen(port, () => {
-  return console.log(
-    `Express is listening at https://quiver-chat-api.onrender.com`
-  );
+  return console.log(`Express is listening on poer ${port}`);
 });
