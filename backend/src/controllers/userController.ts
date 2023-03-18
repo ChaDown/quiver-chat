@@ -64,6 +64,8 @@ export async function logInPost(req, res, next) {
         res.cookie('accessToken', token, {
           httpOnly: true,
           expires: new Date(Date.now() + 1000 * 86400),
+          secure: true,
+          sameSite: 'none',
         });
 
         return res.json({ message: 'success', user: body });

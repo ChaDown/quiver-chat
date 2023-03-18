@@ -23,7 +23,6 @@ app.use(
   cors({
     origin: 'https://quiver-chat.onrender.com',
     credentials: true,
-    allowedHeaders: 'Cookies',
   })
 );
 app.use(passport.initialize());
