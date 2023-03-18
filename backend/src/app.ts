@@ -21,7 +21,7 @@ const port = process.env.PORT || 3000;
 
 app.use(
   cors({
-    origin: 'https://quiver-chat.onrender.com',
+    origin: 'https://quiver-chat.onrender.com/',
     credentials: true,
   })
 );

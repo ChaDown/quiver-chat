@@ -1,7 +1,7 @@
 {
-  "name": "frontend",
+  "name": "quiver-chat-frontend",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@fvilers/disable-react-devtools": "^1.3.0",
     "@reacticons/ionicons": "^6.1.1",
