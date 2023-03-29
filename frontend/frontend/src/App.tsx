@@ -47,27 +47,3 @@ function App() {
 }
 
 export default App;
-
-// return (
-//   <UserContext.Provider value={user}>
-//     <UserVisibleContext.Provider value={userVisible}>
-//     <div className={userVisible ? 'overlay' : ''}></div>
-//     <User
-//       visible={userVisible}
-//       toggleUserVisible={toggleUserVisible}
-//       user={user}
-//     />
-//     <div className={userVisible ? 'unclickable' : ''}>
-//       <NavBar toggleUserVisible={toggleUserVisible} user={user} />
-//       <Routes>
-//         <Route path='/' element={<Home />} />
-//         <Route path='/surfboard-model/:urlString' element={<Model />} />
-//         {/* <Route path='/user/:userId' element={<User />} />
-//       <Route path='/add' element={<Add />} /> */}
-//       </Routes>
-
-//       </div>
-//       </UserVisibleContext.Provider>
-//       </UserContext.Provider>
-// )
-// }

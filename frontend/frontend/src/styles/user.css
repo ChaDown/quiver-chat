@@ -78,18 +78,6 @@
   transition: transform 0.3s ease-in-out;
 }
 
-button:hover {
-  transform: scale(1.05, 1.05);
-}
-
-input {
-  min-width: 70%;
-  max-width: 90%;
-  overflow: scroll;
-  border: none;
-  border-radius: 3px;
-}
-
 .close-user-btn {
   border: none;
   margin: 10px;
